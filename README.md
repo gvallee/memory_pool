@@ -31,7 +31,7 @@ When getting an object, we declare an empty slice of bytes and gets bytes from t
 Of course, this is not as optimal in term of memory allocations than what we would do in C since when we get an object, we declare a new slice of bytes, which will allocate some memory for the slice object itself. But it is nevertheless a useful building block to build other service and
 capabilities and still ensure decent performance when handling large memory pools.
 
-# Growing a slice
+# Growing a memory pool
 
 Using a channel is a powerful choice here since a channel already handle its content as a queue.
 In other words, when we safely get an object from a memory pool, we know it cannot be given to
