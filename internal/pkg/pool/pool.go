@@ -11,6 +11,7 @@ import (
 	"sync"
 )
 
+// Pool is the data structure representing a memory pool
 type Pool struct {
 	ObjSize    int64
 	NObj       int64
@@ -20,6 +21,7 @@ type Pool struct {
 	data       chan byte
 }
 
+// Obj represents an object from a memory pool
 type Obj []byte
 
 func (p *Pool) growPool(newSize int64) error {
@@ -40,6 +42,7 @@ func (p *Pool) growPool(newSize int64) error {
 	return nil
 }
 
+// New initializes a new memory pool
 func (p *Pool) New() error {
 	if p == nil {
 		return nil
@@ -54,6 +57,7 @@ func (p *Pool) New() error {
 	return nil
 }
 
+// Get returns an object from a memory pool
 func (p *Pool) Get() Obj {
 	if p == nil {
 		return nil
@@ -85,6 +89,7 @@ func (p *Pool) Get() Obj {
 	return o
 }
 
+// Return puts an object into the memory pool for later reuse
 func (p *Pool) Return(o Obj) error {
 	if p == nil {
 		return nil
