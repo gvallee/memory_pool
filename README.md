@@ -60,3 +60,38 @@ any other process, thread, or Go routine.
 
 It also means it is easy to grow a memory pool: when the memory pool is empty, make a new one with the new capacity and allocate the requested new objects. Then we can return the objects already in
 use using the same memory pool.
+
+# Usage
+
+For details, please refer to the tests and benchmarks.
+
+## Pool initialization
+
+```
+	pool := Pool{
+		ObjSize:    <object size>,
+		NObj:       <number of objects added during initialization, must be at least 1>,
+		GrowFactor: <0 means the pool cannot grow; any positive number means the size will be increase by the fact when empty>,
+		Erase:      <false: the objects are simply returned; true: the objects' content is set to zero before being returned >,
+	}
+	pool.New()
+```
+
+## Get a slice of bytes from the pool
+
+```
+s := pool.Get()
+if s == nil {
+    fmt.Println("unable to get object from pool")
+}
+```
+
+## Return an object to a pool
+
+```
+err := p.Return(s)
+if err != nil {
+	t.Fatal("failed to return object")
+}
+```
+
