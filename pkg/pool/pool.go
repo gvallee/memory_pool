@@ -7,6 +7,8 @@
 
 package pool
 
+import "fmt"
+
 // Obj represents an object from a memory pool
 //type Obj []byte
 
@@ -14,7 +16,7 @@ package pool
 type Pool struct {
 	ObjSize    int64
 	NObj       int64
-	GrowFactor int8
+	GrowFactor uint8
 	Erase      bool
 	data       chan []byte // channels have a built-in locking mechanism, no need to protect it with a mutex
 }
@@ -40,6 +42,10 @@ func (p *Pool) growPool(nNewObj int64) error {
 func (p *Pool) New() error {
 	if p == nil {
 		return nil
+	}
+
+	if p.NObj <= 0 {
+		return fmt.Errorf("the pool must initialy have at least one object in it")
 	}
 
 	p.data = make(chan []byte, p.NObj)
