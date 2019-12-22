@@ -7,7 +7,9 @@
 
 package pool
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // Obj represents an object from a memory pool
 //type Obj []byte
