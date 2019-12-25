@@ -11,9 +11,6 @@ import (
 	"fmt"
 )
 
-// Obj represents an object from a memory pool
-//type Obj []byte
-
 // Pool is the data structure representing a memory pool
 type Pool struct {
 	ObjSize    int64
@@ -95,12 +92,6 @@ func (p *Pool) Return(o []byte) error {
 	}
 
 	p.data <- o
-	/*
-		for i = 0; i < p.ObjSize; i++ {
-			p.data <- (*o)[i]
-		}
-	*/
-
 	o = nil
 
 	return nil
